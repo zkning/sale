@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: sophia-consumer
+
+server:
+  port: 8087
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 2
+    instance-id: sophia.consumer.com
+  client:
+    service-url:
+      defaultZone: http://eureka.didispace.com/eureka/
