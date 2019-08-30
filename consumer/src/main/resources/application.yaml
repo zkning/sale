@@ -14,3 +14,8 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka.didispace.com/eureka/
+
+# ribbon负载均衡策略
+sophia-consumer:
+    ribbon:
+      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

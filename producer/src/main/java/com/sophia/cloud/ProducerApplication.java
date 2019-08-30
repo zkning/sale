@@ -3,9 +3,12 @@ package com.sophia.cloud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Hello world!
@@ -18,7 +21,12 @@ public class ProducerApplication implements FeignProducer {
     }
 
     @Autowired
-    FeignProducer feignProducer;
+    RestTemplate restTemplate;
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
+    }
 
     @RequestMapping("/get")
     public String get() throws InterruptedException {
@@ -29,13 +37,16 @@ public class ProducerApplication implements FeignProducer {
 
 
     /**
-     * feign生产服务
+     * feign生产服务实现
      *
      * @param name
      * @return
      */
     @Override
     public String getName(@RequestParam("name") String name) {
-        return "由Feign producer生产的数据: " + name;
+
+        // 第三方接口调用：http://httpbin.org:80
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://httpbin.org:80/get", String.class);
+        return "由Feign producer生产的数据: " + responseEntity.getBody();
     }
 }

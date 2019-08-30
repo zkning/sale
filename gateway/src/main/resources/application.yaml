@@ -1,7 +1,7 @@
 logging:
   path: D:\www\wwwlogs
   level:
-    root: info
+    root: debug
 spring:
   cloud:
     gateway:
