@@ -1,46 +1,46 @@
 logging:
   path: D:\www\wwwlogs
   level:
-    root: debug
+    root: info
 spring:
   cloud:
     gateway:
       routes:
-      - id: consumer
-#        uri: http://httpbin.org:80
-#        uri: http://localhost:8087
-        uri: lb://sophia-consumer
+      - id: sale-user
+        uri: lb://sale-user #lb://服务名(spring.application.name) Ribbon load balancer
         order: 0
         predicates:
-        - Path=/consumer/**
-      - id: producer
+        - Path=/user/**   # 拦截url
+      - id: sale-product
 #        uri: http://localhost:8088
-        uri: lb://sophia-producer #lb://服务名(spring.application.name) Ribbon load balancer
+        uri: lb://sale-product
         order: 1
         predicates:
-        - Path=/producer/**
+        - Path=/product/**
         filters:
-          - name: Authoriz
+          - name: Authoriz # 自定义权限过滤器
             args:
               valve: true
           - AddRequestHeader=h1, HHHHHHHHHHHHHHHHH
           - AddRequestParameter=p1, AAAAAAAAAA
           - name: Hystrix
             args:
-              name: testFallback
+              name: authFallback # hystrix service id
               fallbackUri: forward:/fallback
   application:
-    name: sophia-gateway
+    name: sale-gateway
 
-hystrix.command.testFallback.execution.isolation.thread.timeoutInMilliseconds: 5000
-hystrix.command.testFallback.fallback.enabled: true
+hystrix.command.authFallback.execution.isolation.thread.timeoutInMilliseconds: 5000
+hystrix.command.authFallback.fallback.enabled: true
+
 eureka:
   instance:
     prefer-ip-address: true #访问路径变为IP地址
     lease-expiration-duration-in-seconds: 5 #设置心跳的周期间隔(默认90s)[如果5s没响应默认服务宕机]
     lease-renewal-interval-in-seconds: 2  #设置心跳时间间隔(默认30s)
-    instance-id: sophia.gateway.com    #在信息列表时显示主机名称
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}    #在信息列表时显示主机名称
   client:
     service-url:
       defaultZone: http://eureka.didispace.com/eureka/
-
+server:
+  port: 8086

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: sale-product
+
+server:
+  port: 8088
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 2
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} #eureka 服务端实例名称
+  client:
+    service-url:
+      defaultZone: http://eureka.didispace.com/eureka/
