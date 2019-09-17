@@ -59,11 +59,11 @@ public class ProductApplication implements ProductService {
     public String getName(@RequestParam("id") Long id) {
 
         // 第三方接口调用：http://httpbin.org:80
-        try {
-            Thread.sleep(5000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(5000L);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://httpbin.org:80/get", String.class);
         return responseEntity.getBody();
     }

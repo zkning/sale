@@ -1,11 +1,12 @@
 package com.ning.sale;
 
 import com.alibaba.fastjson.JSON;
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,22 +20,19 @@ import java.util.Map;
 @EnableFeignClients
 @RequestMapping("/user")
 @SpringBootApplication
+@EnableHystrix
 public class UserApplication {
 
     @Autowired
     ProductApiService productApiService;
+    @Autowired
+    ProductPriceService productPriceService;
 
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
-    @Autowired
-    RestTemplate restTemplate;
-
-    @Value("${productApi.getPrice}")
-    String productUrl;
 
     @RequestMapping("/info")
     public String get() throws InterruptedException {
@@ -49,10 +47,12 @@ public class UserApplication {
         return productApiService.getName(1L);
     }
 
-
     @RequestMapping("/getPrice")
     public String getPrice() {
-        return restTemplate.getForObject(productUrl, String.class);
+        HystrixRequestContext.initializeContext();  //初始化请求上下文
+        productPriceService.getName(1);
+        productPriceService.getName(1);
+        return productPriceService.getName(1);
     }
 
     public static void main(String[] args) {

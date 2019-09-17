@@ -24,3 +24,4 @@ sale-product:
 # 商品服务url
 productApi:
   getPrice: http://sale-product/product/getPrice
+  getName: http://sale-product/product/getName

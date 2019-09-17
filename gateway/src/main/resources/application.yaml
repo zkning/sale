@@ -33,6 +33,11 @@ spring:
 hystrix.command.authFallback.execution.isolation.thread.timeoutInMilliseconds: 5000
 hystrix.command.authFallback.fallback.enabled: true
 
+# Ribbon load balancer
+sale-product:
+    ribbon:
+      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+
 eureka:
   instance:
     prefer-ip-address: true #访问路径变为IP地址
@@ -47,6 +52,4 @@ server:
 
 info:
   app.name: sale-gateway
-  company.name: https://spring.io/projects/spring-cloud#learn
-  build.artifactId: $project.artifactId$
-  build.version: $project.version$
+  websit: https://spring.io/projects/spring-cloud#learn
