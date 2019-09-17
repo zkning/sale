@@ -9,7 +9,7 @@
 		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ning.sale</groupId>
-	<artifactId>gateway</artifactId>
+	<artifactId>sale-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
@@ -30,6 +30,16 @@
 	</dependencies>
 
 	<build>
+        <finalName>sale-gateway</finalName>
+        <resources>
+            <resource>
+                <!-- 允许访问src/main/resources下的内容 -->
+                <directory>src/main/resources</directory>
+                <!-- 过滤开启 -->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

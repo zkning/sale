@@ -44,3 +44,9 @@ eureka:
       defaultZone: http://eureka.didispace.com/eureka/
 server:
   port: 8086
+
+info:
+  app.name: sale-gateway
+  company.name: https://spring.io/projects/spring-cloud#learn
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
