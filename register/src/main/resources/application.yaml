@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: sale-eureke
+
+server:
+  port: 8084
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}
+  client:
+    register-with-eureka: false   # 不向注册中心注册自己
+    fetch-registry: false  # 服务中心只维护实例,不检索实例
+    service-url:
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka/
+  server:
+    enable-self-preservation: true  # 自我保护机制
