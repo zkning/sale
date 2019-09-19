@@ -3,6 +3,8 @@ package com.ning.sale;
 import com.alibaba.fastjson.JSON;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -28,6 +30,9 @@ public class UserApplication {
     @Autowired
     ProductPriceService productPriceService;
 
+    @Value("${version}")
+    String version;
+
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
@@ -46,6 +51,13 @@ public class UserApplication {
     public String getProductName() throws InterruptedException {
         return productApiService.getName(1L);
     }
+
+
+    @RequestMapping("/ver")
+    public String getVersion() {
+        return version;
+    }
+
 
     @RequestMapping("/getPrice")
     public String getPrice() {

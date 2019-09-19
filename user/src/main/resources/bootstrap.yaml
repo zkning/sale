@@ -1,0 +1,9 @@
+# 配置中心必须配置在bootstrap优先于本地配置
+spring:
+  application:
+    name: sale-user
+  cloud:
+    config:
+      uri: http://localhost:8083/
+      label: master
+      profile: dev

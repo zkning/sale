@@ -1,7 +1,3 @@
-spring:
-  application:
-    name: sale-user
-
 server:
   port: 8087
 
