@@ -25,6 +25,7 @@
         <module>product</module>
         <module>user</module>
         <module>register</module>
+        <module>config</module>
     </modules>
 
     <dependencyManagement>
