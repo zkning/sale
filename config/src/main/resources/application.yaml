@@ -11,7 +11,8 @@ spring:
           search-paths: /config-repo/**
           username:
           password:
-
+        overrides:
+          saleKey: saleValue # 属性覆盖不会被客户端修改
 eureka:
   instance:
     prefer-ip-address: true

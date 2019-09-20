@@ -4,6 +4,36 @@ spring:
     name: sale-user
   cloud:
     config:
-      uri: http://localhost:8083/
+#      uri: http://localhost:8083/
       label: master
       profile: dev
+      discovery:
+        enabled: true
+        service-id: sale-config
+        # 快速响应错误日志
+      fail-fast: true
+      retry:
+        # 初始重试间隔时间，单位ms
+        multiplier: 1000
+        # 最大间隔时间
+        max-interval: 2000
+        # 最大重试次数
+        max-attempts: 6
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 2
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} #eureka 服务端实例名称
+  client:
+    service-url:
+      defaultZone: http://eureka.didispace.com/eureka/
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露actuator端口
+        include: ["refresh"]

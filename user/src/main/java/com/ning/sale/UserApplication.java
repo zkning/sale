@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ import java.util.Map;
 @RequestMapping("/user")
 @SpringBootApplication
 @EnableHystrix
+@RefreshScope
 public class UserApplication {
 
     @Autowired
@@ -32,6 +34,9 @@ public class UserApplication {
 
     @Value("${version}")
     String version;
+
+    @Value("${saleKey}")
+    String saleKey;
 
     @Bean
     @LoadBalanced
@@ -55,7 +60,7 @@ public class UserApplication {
 
     @RequestMapping("/ver")
     public String getVersion() {
-        return version;
+        return version + " >>> " + saleKey;
     }
 
 
