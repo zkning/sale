@@ -2,8 +2,8 @@ package com.ning.sale;
 
 import com.alibaba.fastjson.JSON;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
+import com.ning.sale.event.MessageEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,6 +38,9 @@ public class UserApplication {
     @Value("${saleKey}")
     String saleKey;
 
+    @Autowired
+    MessageEventPublisher messageEventPublisher;
+
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
@@ -61,6 +64,11 @@ public class UserApplication {
     @RequestMapping("/ver")
     public String getVersion() {
         return version + " >>> " + saleKey;
+    }
+
+    @RequestMapping("/push")
+    public void push() {
+        messageEventPublisher.send("发送消息事件");
     }
 
 
