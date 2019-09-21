@@ -1,6 +1,7 @@
 package com.ning.sale;
 
 import com.alibaba.fastjson.JSON;
+import com.ning.sale.event.MessageEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +31,9 @@ public class ProductApplication implements ProductService {
 
     @Value("${server.port}")
     String port;
+
+    @Autowired
+    MessageEventPublisher messageEventPublisher;
 
     @Bean
     public RestTemplate restTemplate() {
@@ -67,4 +71,12 @@ public class ProductApplication implements ProductService {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://httpbin.org:80/get", String.class);
         return responseEntity.getBody();
     }
+
+
+    @RequestMapping("/push")
+    public String push() {
+        messageEventPublisher.send("发送消息事件");
+        return "已推送消息推送事件";
+    }
+
 }
