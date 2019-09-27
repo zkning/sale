@@ -19,6 +19,11 @@ spring:
         max-interval: 2000
         # 最大重试次数
         max-attempts: 6
+  rabbitmq:
+      host: 10.10.30.11
+      port: 5690
+      username: test
+      password: test2019
 
 eureka:
   instance:
@@ -36,4 +41,4 @@ management:
     web:
       exposure:
         # 暴露actuator端口
-        include: ["refresh"]
+        include: ["refresh", "bus-refresh", "health"]

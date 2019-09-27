@@ -11,8 +11,13 @@ spring:
           search-paths: /config-repo/**
           username:
           password:
-        overrides:
-          saleKey: saleValue # 属性覆盖不会被客户端修改
+        overrides:  # 属性覆盖不会被客户端修改
+          saleKey: saleValue
+  rabbitmq:
+    host: 10.10.30.11
+    port: 5690
+    username: test
+    password: test2019
 eureka:
   instance:
     prefer-ip-address: true
@@ -26,6 +31,11 @@ server:
 logging:
   level:
     root: info
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["refresh", "bus-refresh", "health"]
 
 # label 对应git不同分支
 # /{application}/{profile}[/{label}]
