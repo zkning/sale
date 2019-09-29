@@ -34,7 +34,14 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka.didispace.com/eureka/
+server:
+  port: 8087
 
+# ribbon负载均衡策略
+sale-product:
+    ribbon:
+      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+#      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
 management:
   endpoints:

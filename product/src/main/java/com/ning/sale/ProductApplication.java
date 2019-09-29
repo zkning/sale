@@ -2,6 +2,8 @@ package com.ning.sale;
 
 import com.alibaba.fastjson.JSON;
 import com.ning.sale.event.MessageEventPublisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +24,7 @@ import java.util.Map;
 @RestController
 @SpringBootApplication
 public class ProductApplication implements ProductService {
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class);
     }
@@ -68,6 +71,7 @@ public class ProductApplication implements ProductService {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+        logger.info("product {}", "getName");
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://httpbin.org:80/get", String.class);
         return responseEntity.getBody();
     }

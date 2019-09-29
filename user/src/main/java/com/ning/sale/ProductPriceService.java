@@ -47,16 +47,17 @@ public class ProductPriceService {
     @HystrixCommand(fallbackMethod = "getNamesFallback")
     public List<String> getNames(List<Integer> id) {
         logger.info("[getPrice]调用查询商品名称");
+        String rst = restTemplate.getForObject(getNameUrl + "?id=" + id.get(0), String.class);
+        logger.info(rst);
         List<String> list = new ArrayList<>();
-        list.add("调用商品查询请求合并");
+        list.add("调用商品查询请求合并:" + rst);
         return list;
     }
 
-    public String getNameFallback(Integer id) {
-        return "getNameFallback";
-    }
-
     public List<String> getNamesFallback(List<Integer> id) {
-        return new ArrayList<>();
+        logger.error("getNamesFallback被熔断");
+        List<String> ret = new ArrayList<>();
+        ret.add("");
+        return ret;
     }
 }

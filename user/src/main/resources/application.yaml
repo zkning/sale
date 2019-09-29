@@ -1,11 +1,3 @@
-server:
-  port: 8087
-
-# ribbon负载均衡策略
-sale-product:
-    ribbon:
-      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
-#      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
 # 商品服务url
 productApi:
