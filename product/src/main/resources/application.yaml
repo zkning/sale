@@ -1,6 +1,21 @@
 spring:
   application:
     name: sale-product
+  rabbitmq:
+        host: 10.10.30.11
+        port: 5690
+        username: test
+        password: test2019
+    # 以HTTP方式发送至zipkin
+  zipkin:
+    base-url: http://localhost:8082
+    sender:
+      # 选择发送类型
+      type: rabbit
+  sleuth:
+    sampler:
+      # 取样比例
+      probability: 1
 
 server:
   port: 8088

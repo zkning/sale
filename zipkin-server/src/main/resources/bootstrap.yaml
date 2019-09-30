@@ -1,0 +1,35 @@
+# 配置中心必须配置在bootstrap优先于本地配置
+spring:
+  application:
+    name: sale-zipkin
+  rabbitmq:
+      host: 10.10.30.11
+      port: 5690
+      username: test
+      password: test2019
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 2
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} #eureka 服务端实例名称
+  client:
+    service-url:
+      defaultZone: http://eureka.didispace.com/eureka/
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露actuator端口
+        include: ["*"]
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+logging:
+  level:
+    root: info

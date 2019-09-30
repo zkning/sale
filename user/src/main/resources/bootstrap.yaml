@@ -24,6 +24,15 @@ spring:
       port: 5690
       username: test
       password: test2019
+  # 以HTTP方式发送至zipkin
+  zipkin:
+    base-url: http://sale-zipkin/
+    sender:
+      type: rabbit
+  sleuth:
+    sampler:
+      # 取样比例
+      probability: 1
 
 eureka:
   instance:
