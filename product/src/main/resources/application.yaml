@@ -11,7 +11,7 @@ spring:
     base-url: http://localhost:8082
     sender:
       # 选择发送类型
-      type: rabbit
+      type: web
   sleuth:
     sampler:
       # 取样比例

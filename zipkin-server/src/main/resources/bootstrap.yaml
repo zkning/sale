@@ -2,11 +2,14 @@
 spring:
   application:
     name: sale-zipkin
-  rabbitmq:
-      host: 10.10.30.11
-      port: 5690
+
+zipkin:
+  collector:
+    rabbitmq:
+      addresses: 10.10.30.11:5690
       username: test
       password: test2019
+      queue: sale-zipkin
 
 eureka:
   instance:

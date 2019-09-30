@@ -29,6 +29,8 @@ spring:
     base-url: http://sale-zipkin/
     sender:
       type: rabbit
+    rabbitmq:
+      queue: sale-zipkin
   sleuth:
     sampler:
       # 取样比例
